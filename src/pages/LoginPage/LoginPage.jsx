@@ -1,6 +1,4 @@
-import React, { useEffect, useState } from "react";
 import queryString from "query-string";
-import axios from "axios";
 import "./LoginPage.css";
 import { FaGithub, FaInstagram, FaLinkedin } from "react-icons/fa";
 
@@ -12,29 +10,6 @@ export default function LoginPage() {
       ""
     );
   };
-
-  async function getAuthCode(queryParams) {
-    const response = await axios.post(
-      "https://accounts.spotify.com/api/token",
-      queryString.stringify({
-        code: code,
-        redirect_uri: "http://localhost:5173",
-        grant_type: "authorization_code",
-      }),
-      {
-        headers: {
-          "content-type": "application/x-www-form-urlencoded",
-          Authorization: `Basic ${Buffer.from(
-            `${process.env.CLIENT_ID}:${process.env.CLIENT_SECRET}`
-          ).toString("base64")}`,
-        },
-      }
-    );
-    if (response.data.status) {
-      console.log("hi");
-    } else {
-    }
-  }
 
   const authorise = async () => {
     const state = generateRandomString(16);
