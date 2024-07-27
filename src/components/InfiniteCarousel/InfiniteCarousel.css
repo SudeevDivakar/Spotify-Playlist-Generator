@@ -1,0 +1,24 @@
+@keyframes slide {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+.artists-slide {
+  display: inline-block;
+  animation: 40s slide infinite linear;
+  white-space: nowrap;
+  width: 172rem;
+}
+
+.artists:hover .artists-slide {
+  animation-play-state: paused;
+}
+
+.artists {
+  position: relative;
+  white-space: nowrap;
+}
