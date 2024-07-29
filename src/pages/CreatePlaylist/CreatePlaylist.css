@@ -1,0 +1,29 @@
+#top-artist.active::after,
+#custom.active::after {
+  --border-radius: 0.6em;
+  content: "";
+  position: absolute;
+  right: calc(var(--border-radius) * -1);
+  bottom: 0;
+  display: inline-block;
+  background-color: black;
+  height: var(--border-radius);
+  width: var(--border-radius);
+  border-radius: 50%;
+  box-shadow: -5px 5px 0 1px #16a34a;
+}
+
+#custom.active::before,
+#top-artist.active::before {
+  --border-radius: 0.6rem;
+  content: "";
+  position: absolute;
+  left: calc(var(--border-radius) * -1);
+  bottom: 0;
+  display: inline-block;
+  background-color: black;
+  height: var(--border-radius);
+  width: var(--border-radius);
+  border-radius: 50%;
+  box-shadow: 5px 5px 0 1px #16a34a;
+}

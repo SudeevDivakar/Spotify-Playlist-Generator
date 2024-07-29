@@ -1,0 +1,38 @@
+.dynamic-texts {
+  overflow: hidden;
+  height: 4rem;
+}
+
+.dynamic-texts li {
+  position: relative;
+  top: 0;
+  animation: slide 10s steps(4) infinite;
+  margin-bottom: 20px;
+}
+
+.dynamic-texts li span {
+  position: relative;
+}
+
+.dynamic-texts li span::after {
+  content: "";
+  position: absolute;
+  height: 90%;
+  width: 100%;
+  background-color: black;
+  left: 0;
+  border-left: 2px solid #65a30d;
+  animation: typing 2.5s steps(14) infinite;
+}
+
+@keyframes typing {
+  100% {
+    left: 100%;
+  }
+}
+
+@keyframes slide {
+  100% {
+    top: -16.5rem;
+  }
+}

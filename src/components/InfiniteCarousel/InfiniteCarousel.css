@@ -1,4 +1,4 @@
-@keyframes slide {
+@keyframes infiniteslide {
   from {
     transform: translateX(0);
   }
@@ -9,7 +9,7 @@
 
 .artists-slide {
   display: inline-block;
-  animation: 40s slide infinite linear;
+  animation: 40s infiniteslide infinite linear;
   white-space: nowrap;
   width: 172rem;
 }
