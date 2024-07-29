@@ -29,6 +29,27 @@ export default function Top() {
     });
   }
 
+  function validateForm() {
+    let isValid = true;
+    const newErrors = {};
+
+    if (!formData.playlistName) {
+      newErrors.playlistName = "Please Provide a Playlist Name";
+      isValid = false;
+    }
+
+    if (formData.limit > 20) {
+      newErrors.limit = "Too Many Artists";
+      isValid = false;
+    } else if (formData.limit < 5) {
+      newErrors.limit = "Not Enough Artists";
+      isValid = false;
+    }
+
+    setErrors((oldErrors) => ({ ...oldErrors, ...newErrors }));
+    return isValid;
+  }
+
   async function addSongsToPlaylist(trackIDs, playlist_id) {
     const checkAccessToken = Cookies.get("access_token");
     if (!accessToken || !checkAccessToken) {
@@ -131,27 +152,6 @@ export default function Top() {
     addSongsToPlaylist(trackIDs, playlist_id);
   }
 
-  function validateForm() {
-    let isValid = true;
-    const newErrors = {};
-
-    if (!formData.playlistName) {
-      newErrors.playlistName = "Playlist Name Must Be Mentioned";
-      isValid = false;
-    }
-
-    if (formData.limit > 20) {
-      newErrors.limit = "Too Many Artists Selected";
-      isValid = false;
-    } else if (formData.limit < 5) {
-      newErrors.limit = "Too Less Artists Selected";
-      isValid = false;
-    }
-
-    setErrors((oldErrors) => ({ ...oldErrors, ...newErrors }));
-    return isValid;
-  }
-
   async function getTopArtistIDs() {
     const checkAccessToken = Cookies.get("access_token");
     if (!accessToken || !checkAccessToken) {
@@ -186,7 +186,7 @@ export default function Top() {
   }
 
   return (
-    <div className="flex flex-col items-center w-5/6 overflow-hidden mb-10">
+    <div className="flex flex-col items-center w-[90%] overflow-hidden mb-10">
       <h1 className="font-bold text-3xl mt-10">
         Make a Playlist Using Random Songs From Your Top Artists
       </h1>
@@ -195,43 +195,57 @@ export default function Top() {
 
       <div
         id="form-section"
-        className="flex flex-col items-center bg-white py-2 px-24 w-full rounded-xl"
+        className="flex flex-col items-center bg-gray-200 py-2 px-1 w-full rounded-xl"
       >
         <div className="mt-8 inline-block">
           <label
             htmlFor="playlistName"
             className="font-semibold text-md text-2xl"
           >
-            Playlist Name :
+            Playlist Name:
           </label>
-          <input
-            type="text"
-            id="playlistName"
-            name="playlistName"
-            value={formData.playlistName}
-            onChange={handleChange}
-            className={`border border-black rounded-md ml-1 p-1 ${
-              errors.playlistName ? "border-red-500 border-2" : ""
-            }`}
-          />
+          <div className="inline-block">
+            <input
+              type="text"
+              id="playlistName"
+              name="playlistName"
+              value={formData.playlistName}
+              onChange={handleChange}
+              className={`border border-black rounded-md ml-1 p-1 ${
+                errors.playlistName ? "border-red-500 border-2 relative" : ""
+              }`}
+            />
+            {errors.playlistName ? (
+              <h1 className="absolute text-red-600">{errors.playlistName}</h1>
+            ) : (
+              ""
+            )}
+          </div>
         </div>
         <div className="mt-8 inline-block">
           <label htmlFor="limit" className="font-semibold text-md text-xl">
-            Number of Top Artists (5-20) :
+            Number of Top Artists (5-20):
           </label>
-          <input
-            id="limit"
-            name="limit"
-            type="number"
-            className={`w-14 ml-2 rounded-md p-1 border border-black ${
-              errors.limit ? "border-red-500 border-2" : ""
-            }`}
-            value={formData.limit}
-            onChange={handleChange}
-          />
+          <div className="inline-block">
+            <input
+              id="limit"
+              name="limit"
+              type="number"
+              className={`w-14 ml-2 rounded-md p-1 border border-black ${
+                errors.limit ? "border-red-500 border-2" : ""
+              }`}
+              value={formData.limit}
+              onChange={handleChange}
+            />
+            {errors.limit ? (
+              <h1 className="absolute text-red-600">{errors.limit}</h1>
+            ) : (
+              ""
+            )}
+          </div>
         </div>
 
-        <div className="mt-8 w-1/2 flex justify-around">
+        <div className="mt-8 w-full flex justify-center">
           <div>
             <input
               type="radio"
@@ -241,7 +255,10 @@ export default function Top() {
               checked
               onChange={handleChange}
             />
-            <label htmlFor="public-playlist" className="text-lg inline-block">
+            <label
+              htmlFor="public-playlist"
+              className="text-lg inline-block mr-2"
+            >
               Public Playlist
             </label>
           </div>
@@ -252,6 +269,7 @@ export default function Top() {
               name="playlistType"
               value="false"
               onChange={handleChange}
+              className="ml-2"
             />
             <label htmlFor="private-playlist" className="text-lg inline-block">
               Private Playlist

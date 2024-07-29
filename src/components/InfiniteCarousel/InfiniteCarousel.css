@@ -14,10 +14,6 @@
   width: 172rem;
 }
 
-.artists:hover .artists-slide {
-  animation-play-state: paused;
-}
-
 .artists {
   position: relative;
   white-space: nowrap;

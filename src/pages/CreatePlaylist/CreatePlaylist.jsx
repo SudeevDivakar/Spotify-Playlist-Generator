@@ -1,4 +1,4 @@
-// import "./CreatePlaylist.css";
+import "./CreatePlaylist.css";
 import { useState } from "react";
 import Custom from "./Custom";
 import Top from "./Top";
@@ -32,8 +32,7 @@ export default function CreatePlaylist() {
         </button>
       </div>
       <div className="w-5/6 flex justify-center border-2 rounded-xl bg-green-600 border-green-600 mb-10">
-        {/* {page === "custom" ? <Custom /> : <Top />} */}
-        {page === "custom" ? "lol" : "hi"}
+        {page === "custom" ? <Custom /> : <Top />}
       </div>
     </div>
   );
