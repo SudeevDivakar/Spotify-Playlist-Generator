@@ -9,9 +9,9 @@
 
 .artists-slide {
   display: inline-block;
-  animation: 40s infiniteslide infinite linear;
+  animation: 120s infiniteslide infinite linear;
   white-space: nowrap;
-  width: 172rem;
+  width: 176rem;
 }
 
 .artists {
