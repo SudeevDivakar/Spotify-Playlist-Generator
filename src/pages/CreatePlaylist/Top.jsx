@@ -82,14 +82,39 @@ export default function Top() {
       );
 
       const topTracks = topTracksResponse.data.tracks;
-      const temporary_IDs = [];
-      for (let track of topTracks) {
-        temporary_IDs.push(track.id);
-      }
-      for (let i = 0; i < 5; i++) {
-        let index = Math.floor(Math.random() * temporary_IDs.length);
-        trackIDs.push(`spotify:track:${temporary_IDs[index]}`);
-        temporary_IDs.splice(index, 1);
+
+      if (formData.limit <= 10) {
+        if (topTracks.length <= 10) {
+          for (let i of topTracks) {
+            trackIDs.push(`spotify:track:${i.id}`);
+          }
+        } else {
+          const temporary_IDs = [];
+          for (let track of topTracks) {
+            temporary_IDs.push(track.id);
+          }
+          for (let i = 0; i < 10; i++) {
+            let index = Math.floor(Math.random() * temporary_IDs.length);
+            trackIDs.push(`spotify:track:${temporary_IDs[index]}`);
+            temporary_IDs.splice(index, 1);
+          }
+        }
+      } else {
+        if (topTracks.length <= 5) {
+          for (let i of topTracks) {
+            trackIDs.push(`spotify:track:${i.id}`);
+          }
+        } else {
+          const temporary_IDs = [];
+          for (let track of topTracks) {
+            temporary_IDs.push(track.id);
+          }
+          for (let i = 0; i < 5; i++) {
+            let index = Math.floor(Math.random() * temporary_IDs.length);
+            trackIDs.push(`spotify:track:${temporary_IDs[index]}`);
+            temporary_IDs.splice(index, 1);
+          }
+        }
       }
     }
     const playlist_id = await createPlaylist(formData.playlistName);
