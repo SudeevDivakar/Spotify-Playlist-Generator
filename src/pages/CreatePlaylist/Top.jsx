@@ -6,7 +6,7 @@ import useAuth from "../../hooks/useAuth";
 import useCreatePlaylist from "../../hooks/useCreatePlaylist";
 import useAddSongsToPlaylist from "../../hooks/useAddSongsToPlaylist";
 
-export default function Top() {
+export default function Top({ setLoading }) {
   const [errors, setErrors] = useState({
     playlistName: "",
     limit: "",
@@ -130,6 +130,8 @@ export default function Top() {
     const isFormValid = validateForm();
 
     if (isFormValid) {
+      setLoading(true);
+
       const top20ArtistsResponse = await axios.get(
         "https://api.spotify.com/v1/me/top/artists",
         {

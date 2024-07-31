@@ -1,9 +1,11 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 import useAuth from "./useAuth";
+import { useNavigate } from "react-router-dom";
 
 const useAddSongsToPlaylist = () => {
   const [accessToken, refreshAccessToken] = useAuth();
+  const navigate = useNavigate();
 
   const addSongsToPlaylist = async (trackIDs, playlist_id) => {
     const checkAccessToken = Cookies.get("access_token");
@@ -24,7 +26,7 @@ const useAddSongsToPlaylist = () => {
       }
     );
 
-    console.log(addSongsToPlaylistResponse.data);
+    navigate("/success");
   };
 
   return addSongsToPlaylist;

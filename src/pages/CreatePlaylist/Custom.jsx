@@ -10,7 +10,7 @@ import useCreatePlaylist from "../../hooks/useCreatePlaylist";
 import useAddSongsToPlaylist from "../../hooks/useAddSongsToPlaylist";
 import { useEffect } from "react";
 
-export default function Custom() {
+export default function Custom({ setLoading }) {
   const [formData, setFormData] = useState({
     searchText: "",
     playlistName: "",
@@ -129,6 +129,8 @@ export default function Custom() {
     const isFormValid = validateForm();
 
     if (isFormValid) {
+      setLoading(true);
+
       const trackIDs = [];
 
       for (let i of selectedArtists) {
