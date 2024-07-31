@@ -2,31 +2,39 @@ import { useState } from "react";
 import InfiniteCarousel from "../../components/InfiniteCarousel/InfiniteCarousel";
 import axios from "axios";
 import Cookies from "js-cookie";
-import { useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
+import useCreatePlaylist from "../../hooks/useCreatePlaylist";
+import useAddSongsToPlaylist from "../../hooks/useAddSongsToPlaylist";
 
 export default function Top() {
   const [errors, setErrors] = useState({
     playlistName: "",
-    playlistType: "",
     limit: "",
   });
 
   const [formData, setFormData] = useState({
     limit: 15,
-    playlistType: "true",
     playlistName: "",
   });
 
   let [accessToken, refreshAccessToken] = useAuth();
-
-  const navigate = useNavigate();
+  const createPlaylist = useCreatePlaylist();
+  const addSongsToPlaylist = useAddSongsToPlaylist();
 
   function handleChange(event) {
     const { name, value } = event.target;
     setFormData((oldFormData) => {
       return { ...oldFormData, [name]: value };
     });
+    if (name === "limit" && errors.limit) {
+      setErrors((oldErrors) => {
+        return { ...oldErrors, limit: "" };
+      });
+    } else if (name === "playlistName" && errors.playlistName) {
+      setErrors((oldErrors) => {
+        return { ...oldErrors, playlistName: "" };
+      });
+    }
   }
 
   function validateForm() {
@@ -36,6 +44,8 @@ export default function Top() {
     if (!formData.playlistName) {
       newErrors.playlistName = "Please Provide a Playlist Name";
       isValid = false;
+    } else {
+      newErrors.playlistName = "";
     }
 
     if (formData.limit > 20) {
@@ -44,78 +54,12 @@ export default function Top() {
     } else if (formData.limit < 5) {
       newErrors.limit = "Not Enough Artists";
       isValid = false;
+    } else {
+      newErrors.limit = "";
     }
 
     setErrors((oldErrors) => ({ ...oldErrors, ...newErrors }));
     return isValid;
-  }
-
-  async function addSongsToPlaylist(trackIDs, playlist_id) {
-    const checkAccessToken = Cookies.get("access_token");
-    if (!accessToken || !checkAccessToken) {
-      await refreshAccessToken();
-    }
-
-    const addSongsToPlaylistResponse = await axios.post(
-      `https://api.spotify.com/v1/playlists/${playlist_id}/tracks`,
-      {
-        uris: trackIDs,
-      },
-      {
-        headers: {
-          "content-type": "application/json",
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
-    );
-
-    console.log(addSongsToPlaylistResponse.data);
-  }
-
-  async function getUserId() {
-    const checkAccessToken = Cookies.get("access_token");
-    if (!accessToken || !checkAccessToken) {
-      await refreshAccessToken();
-    }
-
-    const getProfileResponse = await axios.get(
-      "https://api.spotify.com/v1/me",
-      {
-        headers: {
-          "content-type": "application/json",
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
-    );
-
-    return getProfileResponse.data.id;
-  }
-
-  async function createPlaylist() {
-    const checkAccessToken = Cookies.get("access_token");
-    if (!accessToken || !checkAccessToken) {
-      await refreshAccessToken();
-    }
-
-    const userId = await getUserId();
-
-    const createPlaylistResponse = await axios.post(
-      `https://api.spotify.com/v1/users/${userId}/playlists`,
-      {
-        name: formData.playlistName,
-        description:
-          "Playlist made for you using random songs from your top artists. :D",
-        public: formData.playlistType === "true" ? true : false,
-      },
-      {
-        headers: {
-          "content-type": "application/json",
-          Authorization: `Bearer ${accessToken}`,
-        },
-      }
-    );
-
-    return createPlaylistResponse.data.id;
   }
 
   async function getArtistsTopTracks(artistIDs) {
@@ -148,7 +92,7 @@ export default function Top() {
         temporary_IDs.splice(index, 1);
       }
     }
-    const playlist_id = await createPlaylist();
+    const playlist_id = await createPlaylist(formData.playlistName);
     addSongsToPlaylist(trackIDs, playlist_id);
   }
 
@@ -195,12 +139,12 @@ export default function Top() {
 
       <div
         id="form-section"
-        className="flex flex-col items-center bg-gray-200 py-2 px-1 w-full rounded-xl"
+        className="flex flex-col items-center bg-black py-2 px-1 w-full rounded-xl"
       >
         <div className="mt-8 inline-block">
           <label
             htmlFor="playlistName"
-            className="font-semibold text-md text-2xl"
+            className="font-semibold text-md text-2xl text-white"
           >
             Playlist Name:
           </label>
@@ -211,6 +155,7 @@ export default function Top() {
               name="playlistName"
               value={formData.playlistName}
               onChange={handleChange}
+              autoComplete="off"
               className={`border border-black rounded-md ml-1 p-1 ${
                 errors.playlistName ? "border-red-500 border-2 relative" : ""
               }`}
@@ -223,7 +168,10 @@ export default function Top() {
           </div>
         </div>
         <div className="mt-8 inline-block">
-          <label htmlFor="limit" className="font-semibold text-md text-xl">
+          <label
+            htmlFor="limit"
+            className="font-semibold text-md text-xl text-white"
+          >
             Number of Top Artists (5-20):
           </label>
           <div className="inline-block">
@@ -236,6 +184,7 @@ export default function Top() {
               }`}
               value={formData.limit}
               onChange={handleChange}
+              autoComplete="off"
             />
             {errors.limit ? (
               <h1 className="absolute text-red-600">{errors.limit}</h1>
@@ -245,41 +194,9 @@ export default function Top() {
           </div>
         </div>
 
-        <div className="mt-8 w-full flex justify-center">
-          <div>
-            <input
-              type="radio"
-              id="public-playlist"
-              name="playlistType"
-              value="true"
-              checked
-              onChange={handleChange}
-            />
-            <label
-              htmlFor="public-playlist"
-              className="text-lg inline-block mr-2"
-            >
-              Public Playlist
-            </label>
-          </div>
-          <div>
-            <input
-              type="radio"
-              id="private-playlist"
-              name="playlistType"
-              value="false"
-              onChange={handleChange}
-              className="ml-2"
-            />
-            <label htmlFor="private-playlist" className="text-lg inline-block">
-              Private Playlist
-            </label>
-          </div>
-        </div>
-
         <button
           onClick={getTopArtistIDs}
-          className="bg-black hover:scale-105 active:scale-95 transition-transform text-white text-green-600 py-2 px-3 rounded-xl mt-8 mb-5"
+          className="bg-white hover:scale-105 active:scale-95 transition-transform text-green-600 font-semibold py-2 px-3 rounded-xl mt-8 mb-5"
         >
           CREATE PLAYLIST
         </button>

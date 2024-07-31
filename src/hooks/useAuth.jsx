@@ -10,7 +10,6 @@ export default function useAuth() {
 
   async function refreshAccessToken() {
     const refreshToken = Cookies.get("refresh_token");
-    console.log(refreshToken);
     if (!refreshToken) {
       navigate("/");
     } else {
