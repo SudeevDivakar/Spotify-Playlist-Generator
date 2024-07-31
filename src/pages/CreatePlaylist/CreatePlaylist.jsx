@@ -19,7 +19,7 @@ export default function CreatePlaylist() {
           } text-white p-4 rounded-t-lg relative`}
           onClick={() => setPage("top")}
         >
-          Use My Top Artists
+          Top Artists
         </button>
         <button
           id="custom"
@@ -28,7 +28,7 @@ export default function CreatePlaylist() {
           } text-white p-4 rounded-t-lg relative`}
           onClick={() => setPage("custom")}
         >
-          Use Handpicked Artists
+          Handpicked Artists
         </button>
       </div>
       <div className="w-5/6 flex justify-center border-2 rounded-xl bg-green-600 border-green-600 mb-10">

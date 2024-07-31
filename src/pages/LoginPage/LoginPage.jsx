@@ -54,7 +54,7 @@ export default function LoginPage() {
                 <span>Arijit Singh|</span>
               </li>
               <li className="text-5xl font-semibold text-green-600">
-                <span>Taylor Swift|</span>
+                <span>Eminem|</span>
               </li>
               <li className="text-5xl font-semibold">
                 <span>Rihanna|</span>
