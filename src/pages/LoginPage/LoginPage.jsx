@@ -81,17 +81,41 @@ export default function LoginPage() {
       />
       <div
         id="left-box"
-        className="middle-align bg-black w-4/6 text-white h-screen flex-col"
+        className="middle-align bg-black w-4/6 text-white flex-col"
       >
-        <h1 className="font-bold text-5xl mb-7 text-green-500">
+        <h1 id="main-header" className="font-bold text-5xl mb-7 text-green-500">
           Spotify Playlist Generator
         </h1>
-        <h3 className="font-medium text-xl mb-14">
+        <h3 id="secondary-header" className="font-medium text-xl mb-14">
           Create Custom Playlists Tailored to Your Preferences
         </h3>
-        <div className="flex w-full justify-around items-center">
-          <img src="/music_dude.jpg" alt="" className="rounded-full" />
-          <div>
+
+        <div
+          id="saucy-section"
+          className="flex w-full justify-around items-center"
+        >
+          <img
+            id="music-dood"
+            src="/music_dude.jpg"
+            alt=""
+            className="rounded-full"
+          />
+          <div
+            id="right-box-responsive"
+            className="middle-align text-white bg-black top-section flex-col h-auto"
+          >
+            <button
+              id="login-button"
+              className="bg-green-600 p-4 mt-5 rounded-full font-medium hover:scale-105 transition-transform"
+              onClick={() => {
+                authorise();
+              }}
+            >
+              Login with Spotify
+            </button>
+          </div>
+
+          <div id="sauce">
             <h1 className="text-4xl font-semibold mb-10">
               From Your Favourite Artists
             </h1>
@@ -112,7 +136,28 @@ export default function LoginPage() {
           </div>
         </div>
       </div>
-      <div className="w-2/6">
+      <div
+        id="creator-handles-custom"
+        className="bottom-section bg-black flex items-center justify-around w-full text-white"
+      >
+        <span className="font-semibold">Creator Handles:</span>
+        <a target="_blank" href="https://github.com/SudeevDivakar">
+          <FaGithub />
+        </a>
+        <a
+          target="_blank"
+          href="https://www.linkedin.com/in/sudeev-divakar-66116026a/"
+        >
+          <FaLinkedin />
+        </a>
+        <a
+          target="_blank"
+          href="https://www.instagram.com/sudeev_gb?igsh=NGl0YXJqMXpodjk5"
+        >
+          <FaInstagram />
+        </a>
+      </div>
+      <div id="right-section-login" className="w-2/6">
         <div
           id="right-box"
           className="middle-align text-white bg-green-600 top-section flex-col"
