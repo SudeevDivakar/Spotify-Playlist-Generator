@@ -29,11 +29,19 @@ export default function Custom({ setLoading }) {
   useEffect(() => {
     const addedArtistsDiv = document.getElementById("added-artists");
     addedArtistsDiv.scrollTop = addedArtistsDiv.scrollHeight;
+    const addedArtistsResponsiveDiv = document.getElementById(
+      "added-artists-responsive"
+    );
+    addedArtistsDiv.scrollTop = addedArtistsDiv.scrollHeight;
     // window.scrollTo({
     //   top: document.body.scrollHeight / 2.5,
     //   behavior: "smooth",
     // });
     document.getElementById("added-artists").scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+    document.getElementById("added-artists-responsive").scrollIntoView({
       behavior: "smooth",
       block: "start",
     });
@@ -229,7 +237,7 @@ export default function Custom({ setLoading }) {
             )}
             <h1 className="mt-8 font-semibold text-2xl">Added Artists</h1>
             <div
-              id="added-artists"
+              id="added-artists-responsive"
               className={`w-full bg-white rounded-lg h-60 mb-2 mt-2 py-2 overflow-auto flex flex-col items-center ${
                 errors.limit ? "border-2 border-red-600" : "mb-8"
               }`}
