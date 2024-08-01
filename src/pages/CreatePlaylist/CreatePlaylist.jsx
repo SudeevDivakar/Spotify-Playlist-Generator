@@ -59,7 +59,7 @@ export default function CreatePlaylist() {
       {loading ? (
         <>
           <h1 className="font-extrabold text-xl mb-10">HOLD ON WHILE WE</h1>
-          <h1 className="font-bold text-5xl text-white animate-bounce">
+          <h1 className="font-bold text-[1.4rem] sm:text-4xl md:text-5xl text-white animate-bounce">
             GENERATE YOUR PLAYLIST
           </h1>
           <AiOutlineLoading3Quarters className="animate-spin text-white text-5xl mt-10" />

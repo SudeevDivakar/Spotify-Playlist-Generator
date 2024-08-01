@@ -1,12 +1,16 @@
 import { FcPrevious } from "react-icons/fc";
 import { FaSpotify } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import "./SuccessPage.css";
 
 export default function SuccessPage() {
   const navigate = useNavigate();
 
   return (
-    <div className="h-screen bg-green-600 flex flex-col items-center justify-center">
+    <div
+      id="main-content"
+      className="h-screen bg-green-600 flex flex-col items-center justify-center"
+    >
       <FaSpotify className="animate-bounce text-9xl" />
       <h1 className="text-4xl font-bold mt-8">PLAYLIST GENERATED</h1>
       <h1 className="text-4xl font-bold mt-8">HAPPY LISTENING!</h1>

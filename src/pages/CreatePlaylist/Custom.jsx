@@ -101,7 +101,7 @@ export default function Custom({ setLoading }) {
     const newErrors = {};
 
     if (!formData.playlistName) {
-      newErrors.playlistName = "Please Provide a Playlist Name";
+      newErrors.playlistName = "Playlist Name Req.";
       isValid = false;
     } else {
       newErrors.playlistName = "";
