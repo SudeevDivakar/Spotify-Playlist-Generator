@@ -5,6 +5,7 @@ import "./RedirectPage.css";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
+import { FaSpotify } from "react-icons/fa";
 
 export default function RedirectPage() {
   const navigate = useNavigate();
@@ -64,51 +65,14 @@ export default function RedirectPage() {
   });
 
   return (
-    <div id="full-container" className="middle-align">
-      <div
-        id="left-box"
-        className="middle-align bg-black w-4/6 text-white h-screen flex-col"
-      >
-        <h1 className="font-bold text-5xl mb-7 text-green-500">
-          Spotify Playlist Generator
-        </h1>
-        <h3 className="font-medium text-xl mb-14">
-          Create Custom Playlists Tailored to Your Preferences
-        </h3>
-        <div className="flex w-full justify-around items-center">
-          <img src="/music_dude.jpg" alt="" className="rounded-full" />
-          <div>
-            <h1 className="text-4xl font-semibold mb-10">
-              From Your Favourite Artists
-            </h1>
-            <ul className="dynamic-texts">
-              <li className="text-5xl font-semibold text-green-600">
-                <span>Ed Sheeran|</span>
-              </li>
-              <li className="text-5xl font-semibold">
-                <span>Arijit Singh|</span>
-              </li>
-              <li className="text-5xl font-semibold text-green-600">
-                <span>Taylor Swift|</span>
-              </li>
-              <li className="text-5xl font-semibold">
-                <span>Rihanna|</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div className="w-2/6">
-        <div
-          id="right-box"
-          className="middle-align text-white bg-green-600 h-screen flex-col"
-        >
-          <h2 className="font-semibold text-5xl mb-14 text-center">
-            Hold On While We Redirect You
-          </h2>
-          <AiOutlineLoading3Quarters className="text-4xl animate-spin" />
-        </div>
-      </div>
+    <div id="full-container" className="middle-align bg-green-600 flex-col ">
+      <FaSpotify className="text-9xl animate-spin mb-10 text-white" />
+      <h1 id="text-1" className="text-5xl font-bold mb-7 text-white">
+        ONE SEC !
+      </h1>
+      <h1 id="text-2" className="text-2xl font-bold text-white">
+        AMAZING PLAYLISTS ARRIVING YOUR WAY
+      </h1>
     </div>
   );
 }
