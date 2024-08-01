@@ -10,9 +10,9 @@ Spotify Playlist Generator made using React, Tailwind CSS and the Spotify API.
 
 ## Preview
 
-![Alt text](./project_images/image1.png)
-![Alt text](./project_images/image2.png)
-![Alt text](./project_images/image3.png)
+![Alt text](./project_images/image_1.png)
+![Alt text](./project_images/image_2.png)
+![Alt text](./project_images/image_3.png)
 Furthur images present in ./project_images
 
 ## Key Features
