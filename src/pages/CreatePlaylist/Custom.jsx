@@ -9,6 +9,7 @@ import DisplayedArtist from "../../components/DisplayedArtist/DisplayedArtist";
 import useCreatePlaylist from "../../hooks/useCreatePlaylist";
 import useAddSongsToPlaylist from "../../hooks/useAddSongsToPlaylist";
 import { useEffect } from "react";
+import "./Custom.css";
 
 export default function Custom({ setLoading }) {
   const [formData, setFormData] = useState({
@@ -189,16 +190,79 @@ export default function Custom({ setLoading }) {
 
   return (
     <div className="flex flex-col items-center w-[90%]">
-      <h1 className="font-bold text-3xl mt-10">
+      <h1 id="custom-header" className="font-bold text-3xl mt-10">
         Make a Playlist Using Artists YOU Want
       </h1>
-      <div className="flex justify-around w-full mt-10">
-        <div className="w-[63%] overflow-hidden">
+      <div id="content-section" className="flex justify-around w-full mt-10">
+        <div id="left-section" className="w-[63%] overflow-hidden">
           <InfiniteCarousel />
 
+          <div id="responsive-part" className="hidden w-full">
+            <h1 className="mb-2 font-semibold text-xl">
+              Search and Add Artists (5-20)
+            </h1>
+            <input
+              type="text"
+              placeholder="Search Artists"
+              id="searchText"
+              name="searchText"
+              autoComplete="off"
+              className="p-2 rounded-t-md w-full bg-gray-200"
+              value={formData.searchText}
+              onChange={handleChange}
+            />
+            {displayArtists && displayArtists.length > 0 && (
+              <div className="w-full flex flex-col h-72 bg-white rounded-b-lg">
+                {displayArtists.map((displayedArtist) => {
+                  return (
+                    <DisplayedArtist
+                      key={displayedArtist.id}
+                      displayedArtist={displayedArtist}
+                      setSelectedArtists={setSelectedArtists}
+                      selectedArtists={selectedArtists}
+                      errors={errors}
+                      setErrors={setErrors}
+                    />
+                  );
+                })}
+              </div>
+            )}
+            <h1 className="mt-8 font-semibold text-2xl">Added Artists</h1>
+            <div
+              id="added-artists"
+              className={`w-full bg-white rounded-lg h-60 mb-2 mt-2 py-2 overflow-auto flex flex-col items-center ${
+                errors.limit ? "border-2 border-red-600" : "mb-8"
+              }`}
+            >
+              {selectedArtists && selectedArtists.length > 0 ? (
+                selectedArtists.map((selectedArtist) => {
+                  return (
+                    <SelectedArtist
+                      key={selectedArtist.id}
+                      selectedArtist={selectedArtist}
+                      selectedArtists={selectedArtists}
+                      setSelectedArtists={setSelectedArtists}
+                      errors={errors}
+                      setErrors={setErrors}
+                    />
+                  );
+                })
+              ) : (
+                <div className="text-gray-500 mt-4">No Artists Added Yet</div>
+              )}
+            </div>
+            {errors.limit ? (
+              <h1 className="text-red-600 mb-6 font-semibold">
+                {errors.limit}
+              </h1>
+            ) : (
+              ""
+            )}
+          </div>
+
           <div
-            id="form-section"
-            className="flex flex-col items-center bg-black py-2 px-1 w-full rounded-xl my-2"
+            id="form-section-custom"
+            className="flex flex-col items-center bg-black py-2 px-1 w-full rounded-xl mt-2 mb-8"
           >
             <div className="mt-8 inline-block">
               <label
@@ -210,7 +274,7 @@ export default function Custom({ setLoading }) {
               <div className="inline-block">
                 <input
                   type="text"
-                  id="playlistName"
+                  id="playlistName-custom"
                   name="playlistName"
                   value={formData.playlistName}
                   onChange={handleChange}
@@ -232,13 +296,14 @@ export default function Custom({ setLoading }) {
             </div>
             <button
               onClick={getArtistsTopTracks}
+              id="create-playlist-button"
               className="bg-white hover:scale-105 active:scale-95 transition-transform text-green-600 font-semibold py-2 px-3 rounded-xl mt-8 mb-5"
             >
               CREATE PLAYLIST
             </button>
           </div>
         </div>
-        <div className="flex flex-col items-center w-[33%]">
+        <div id="right-section" className="flex flex-col items-center w-[33%]">
           <h1 className="mb-2 font-semibold text-xl">
             Search and Add Artists (5-20)
           </h1>

@@ -1,0 +1,54 @@
+@media (max-width: 973px) {
+  #responsive-part {
+    display: block;
+  }
+
+  #right-section {
+    display: none;
+  }
+
+  #left-section {
+    width: 100%;
+  }
+
+  #content-section {
+    margin-top: 1rem;
+  }
+}
+
+@media (max-width: 745px) {
+  #custom-header {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 610px) {
+  #custom-header {
+    font-size: 1.2rem;
+    margin-top: 1.5rem;
+  }
+
+  #form-section-custom label {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 500px) {
+  #custom-header {
+    font-size: 0.9rem;
+  }
+
+  #content-section {
+    margin-top: 0;
+  }
+
+  #form-section-custom label {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 444px) {
+  #playlistName-custom {
+    width: 8rem;
+  }
+}
