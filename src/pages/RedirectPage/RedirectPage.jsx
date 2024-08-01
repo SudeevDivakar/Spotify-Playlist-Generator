@@ -12,32 +12,49 @@ export default function RedirectPage() {
   async function getAccessToken(queryParams) {
     const code = queryParams.get("code");
 
-    const encodedCredentials = btoa(
-      `${import.meta.env.VITE_CLIENT_ID}:${import.meta.env.VITE_CLIENT_SECRET}`
-    );
+    if (code === null) {
+      navigate("/");
+    } else {
+      const encodedCredentials = btoa(
+        `${import.meta.env.VITE_CLIENT_ID}:${
+          import.meta.env.VITE_CLIENT_SECRET
+        }`
+      );
 
-    const response = await axios.post(
-      "https://accounts.spotify.com/api/token",
-      queryString.stringify({
-        code: code,
-        redirect_uri: `${import.meta.env.VITE_REDIRECT_URL}`,
-        grant_type: "authorization_code",
-      }),
-      {
-        headers: {
-          "content-type": "application/x-www-form-urlencoded",
-          Authorization: `Basic ${encodedCredentials}`,
-        },
+      try {
+        const response = await axios.post(
+          "https://accounts.spotify.com/api/token",
+          queryString.stringify({
+            code: code,
+            redirect_uri: `${import.meta.env.VITE_REDIRECT_URL}`,
+            grant_type: "authorization_code",
+          }),
+          {
+            headers: {
+              "content-type": "application/x-www-form-urlencoded",
+              Authorization: `Basic ${encodedCredentials}`,
+            },
+          }
+        );
+
+        if (!response.data.error) {
+          var inOneHour = new Date(new Date().getTime() + 60 * 60 * 1000);
+          Cookies.set("access_token", response.data.access_token, {
+            expires: inOneHour,
+          });
+          Cookies.set("refresh_token", response.data.refresh_token);
+          navigate("/create-playlist");
+        }
+      } catch (err) {
+        const access_token = Cookies.get("access_token");
+        const refresh_token = Cookies.get("refresh_token");
+        if (!access_token && !refresh_token) {
+          Cookies.set("invalid_code", err.response.data.error_description);
+          navigate("/");
+        } else {
+          navigate("/create-playlist");
+        }
       }
-    );
-
-    if (!response.data.error) {
-      var inOneHour = new Date(new Date().getTime() + 60 * 60 * 1000);
-      Cookies.set("access_token", response.data.access_token, {
-        expires: inOneHour,
-      });
-      Cookies.set("refresh_token", response.data.refresh_token);
-      navigate("/create-playlist");
     }
   }
 

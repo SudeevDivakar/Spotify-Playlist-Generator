@@ -17,8 +17,8 @@ export default function InfiniteCarousel() {
     "./eminem.webp",
   ];
   return (
-    <div className="py-10 w-full artists">
-      <div className="h-32 artists-slide">
+    <div id="artists" className="py-10 w-full artists">
+      <div id="first-slide" className="h-32 artists-slide">
         {images.map((image, index) => {
           return (
             <img
@@ -31,7 +31,7 @@ export default function InfiniteCarousel() {
           );
         })}
       </div>
-      <div className="h-32 artists-slide">
+      <div id="second-slide" className="h-32 artists-slide">
         {images.map((image, index) => {
           return (
             <img

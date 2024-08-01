@@ -5,6 +5,7 @@ import Cookies from "js-cookie";
 import useAuth from "../../hooks/useAuth";
 import useCreatePlaylist from "../../hooks/useCreatePlaylist";
 import useAddSongsToPlaylist from "../../hooks/useAddSongsToPlaylist";
+import "./Top.css";
 
 export default function Top({ setLoading }) {
   const [errors, setErrors] = useState({
@@ -158,7 +159,7 @@ export default function Top({ setLoading }) {
 
   return (
     <div className="flex flex-col items-center w-[90%] overflow-hidden mb-10">
-      <h1 className="font-bold text-3xl mt-10">
+      <h1 id="header" className="font-bold text-3xl mt-10">
         Make a Playlist Using Random Songs From Your Top Artists
       </h1>
 
@@ -223,6 +224,7 @@ export default function Top({ setLoading }) {
 
         <button
           onClick={getTopArtistIDs}
+          id="create-playlist-button"
           className="bg-white hover:scale-105 active:scale-95 transition-transform text-green-600 font-semibold py-2 px-3 rounded-xl mt-8 mb-5"
         >
           CREATE PLAYLIST

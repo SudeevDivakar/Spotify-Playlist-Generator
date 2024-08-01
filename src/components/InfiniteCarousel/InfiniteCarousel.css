@@ -18,3 +18,54 @@
   position: relative;
   white-space: nowrap;
 }
+
+@media (max-width: 794px) {
+  .artists-slide img {
+    height: 7rem;
+  }
+  .artists-slide {
+    width: 158rem;
+  }
+  #first-slide,
+  #second-slide {
+    height: 7rem;
+  }
+  #artists {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+}
+
+@media (max-width: 555px) {
+  .artists-slide img {
+    height: 6rem;
+  }
+  .artists-slide {
+    width: 140rem;
+  }
+  #first-slide,
+  #second-slide {
+    height: 6rem;
+  }
+  #artists {
+    padding-top: 0.7rem;
+    padding-bottom: 1rem;
+  }
+}
+
+@media (max-width: 424px) {
+  .artists-slide img {
+    height: 5rem;
+  }
+  .artists-slide {
+    width: 122rem;
+  }
+  #first-slide,
+  #second-slide {
+    height: 5rem;
+  }
+  #artists {
+    padding-top: 0rem;
+    padding-bottom: 1rem;
+  }
+}

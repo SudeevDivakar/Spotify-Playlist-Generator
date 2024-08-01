@@ -1,8 +1,15 @@
 import queryString from "query-string";
 import "./LoginPage.css";
 import { FaGithub, FaInstagram, FaLinkedin } from "react-icons/fa";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useEffect } from "react";
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
 export default function LoginPage() {
+  const navigate = useNavigate();
+
   const generateRandomString = (length) => {
     const array = new Uint8Array(length);
     window.crypto.getRandomValues(array);
@@ -28,8 +35,50 @@ export default function LoginPage() {
     window.location.href = authorisationUrl;
   };
 
+  useEffect(() => {
+    const error = Cookies.get("invalid_code");
+    const access_token = Cookies.get("access_token");
+    const refresh_token = Cookies.get("refresh_token");
+    if (access_token && refresh_token) {
+      navigate("/create-playlist");
+    }
+    if (!error) {
+      return;
+    } else {
+      notify(error);
+      setTimeout(() => {
+        Cookies.remove("invalid_code");
+      }, 3000);
+    }
+  }, []);
+
+  const notify = (errorText) => {
+    toast.error(errorText, {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
+  };
+
   return (
     <div id="full-container" className="middle-align">
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={true}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
       <div
         id="left-box"
         className="middle-align bg-black w-4/6 text-white h-screen flex-col"

@@ -1,0 +1,57 @@
+@media (max-width: 1135px) {
+  #header {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 910px) {
+  #header {
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 794px) {
+  #header {
+    font-size: 1.1rem;
+    margin-top: 1.5rem;
+  }
+  #form-section label {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 675px) {
+  #header {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 555px) {
+  #header {
+    font-size: 0.7rem;
+    margin-top: 1.2rem;
+  }
+  #form-section label {
+    font-size: 1rem;
+    margin-left: 0.5rem;
+  }
+  #create-playlist-button {
+    font-size: 0.7rem;
+    align-self: center;
+  }
+  #form-section {
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 494px) {
+  #form-section label {
+    display: block;
+  }
+}
+
+@media (max-width: 424px) {
+  #header {
+    font-size: 0.6rem;
+  }
+}
