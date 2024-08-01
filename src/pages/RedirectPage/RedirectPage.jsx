@@ -40,17 +40,26 @@ export default function RedirectPage() {
 
         if (!response.data.error) {
           var inOneHour = new Date(new Date().getTime() + 60 * 60 * 1000);
-          Cookies.set("access_token", response.data.access_token, {
-            expires: inOneHour,
+          Cookies.set(
+            "access_token",
+            response.data.access_token,
+            {
+              expires: inOneHour,
+            },
+            { secure: import.meta.env.VITE_SECURE }
+          );
+          Cookies.set("refresh_token", response.data.refresh_token, {
+            secure: import.meta.env.VITE_SECURE,
           });
-          Cookies.set("refresh_token", response.data.refresh_token);
           navigate("/create-playlist");
         }
       } catch (err) {
         const access_token = Cookies.get("access_token");
         const refresh_token = Cookies.get("refresh_token");
         if (!access_token && !refresh_token) {
-          Cookies.set("invalid_code", err.response.data.error_description);
+          Cookies.set("invalid_code", err.response.data.error_description, {
+            secure: import.meta.env.VITE_SECURE,
+          });
           navigate("/");
         } else {
           navigate("/create-playlist");

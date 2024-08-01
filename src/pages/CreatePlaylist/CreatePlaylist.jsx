@@ -40,7 +40,7 @@ export default function CreatePlaylist() {
     }
 
     if (access_token && refresh_token && !invalid_code) {
-      Cookies.remove("invalid_code", { path: "" });
+      Cookies.remove("invalid_code");
     }
   });
 
