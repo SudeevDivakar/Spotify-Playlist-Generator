@@ -27,7 +27,8 @@ export default function LoginPage() {
       response_type: "code",
       client_id: import.meta.env.VITE_CLIENT_ID,
       scope: scope,
-      redirect_uri: import.meta.env.VITE_REDIRECT_URL,
+      redirect_uri:
+        "https://sudeev-spotify-playlist-generator.vercel.app/redirect",
       state: state,
     });
 
