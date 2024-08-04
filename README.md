@@ -1,9 +1,5 @@
 # Spotify Playlist Generator
 
-## Project Link
-
-To view the project, click [here](https://sudeev-spotify-playlist-generator.vercel.app/)
-
 ## Overview
 
 Spotify Playlist Generator made using React, Tailwind CSS and the Spotify API.
